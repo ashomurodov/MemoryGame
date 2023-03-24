@@ -73,6 +73,16 @@ span {
   width: 100%;
 }
 
+#about_memory{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 50px;
+  font-size: 40px;
+  margin-top: 40px;
+  color: blanchedalmond;
+}
+
 .hidden {
   display: none;
 }

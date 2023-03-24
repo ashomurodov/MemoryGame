@@ -2,6 +2,7 @@ const secretBox = document.querySelectorAll(".gameBox");
 const failCounter = document.getElementById("try");
 const restartBtn = document.getElementById("refresh");
 const winnerPoster = document.getElementById("winnerPoster");
+const memoryMessage = document.querySelector(".memoryMessage");
 
 let checkerCount,
   interval,
@@ -26,6 +27,7 @@ let emojisArray = [
   "😏",
   "➡️",
 ];
+
 
 restartBtn.addEventListener("click", initialize);
 
@@ -60,6 +62,7 @@ function initialize() {
 
   emojisArray = randomizeArray(emojisArray);
   winnerPoster.classList.add("hidden");
+  memoryMessage.textContent = "";
 
   secretBox.forEach((box, idx) => {
     box.textContent = emojisArray[idx];
@@ -80,7 +83,7 @@ function startGame(box, boxIndex) {
     console.log(checkerCount);
     console.log(arrayForClickedIdx);
     winChecker = checkEquality(arrayForClickedIdx);
-    !winChecker && setTimeout(() => closeBoxes(arrayForClickedIdx), 1000);
+    !winChecker && setTimeout(() => closeBoxes(arrayForClickedIdx), 600);
   }
 }
 
@@ -89,6 +92,18 @@ function closeBoxes(array) {
   array[1]?.toString() && secretBox[array[1]].classList.add("emmoji");
   arrayForClickedIdx = [];
   checkerCount = 0;
+}
+
+function brainChecker() {
+  let message;
+  failCount <= 8
+    ? (message = "Your memory is so good!")
+    : failCount <= 12
+    ? (message = "Your memory is normal!")
+    : failCount > 12
+    ? (message = "Your memory is bad!")
+    : (message = "You has not brain!");
+  return message;
 }
 
 function checkEquality(array) {
@@ -102,7 +117,10 @@ function checkEquality(array) {
     arrayForClickedIdx = [];
     checkerCount = 0;
     winCounts++;
-    winCounts == 7 && winnerPoster.classList.remove("hidden");
+    if (winCounts == 7) {
+      winnerPoster.classList.remove("hidden");
+      memoryMessage.textContent = brainChecker();
+    }
     return true;
   }
 
