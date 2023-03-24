@@ -29,6 +29,10 @@ let emojisArray = [
 
 restartBtn.addEventListener("click", initialize);
 
+secretBox.forEach((box, idx) => {
+  box.addEventListener("click", () => startGame(box, idx));
+});
+
 function randomizeArray(array) {
   let currentIndex = array.length,
     randomIndex;
@@ -65,11 +69,6 @@ function initialize() {
 }
 
 initialize();
-
-// ! game start
-secretBox.forEach((box, idx) => {
-  box.addEventListener("click", () => startGame(box, idx));
-});
 
 function startGame(box, boxIndex) {
   if (checkerCount < 2) {
